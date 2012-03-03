@@ -29,16 +29,17 @@ var util = require( 'util' )
   , c
 
 options = 
-  { server:   'irc.freenode.net'
-  , nick:     'david_mark'
-  , channels: [ '#RubyOnRails', '#runlevel6', '#inimino', '#prototype', '#jquery-ot', '#wadsup' ]
+  { server:   'irc.afternet.org'
+  , nick:     'AlanTuring'
+  , channels: [ '#compsci.ca' ]
   , user:
-    { username: 'david_mark'
+    { username: 'AlanTuring'
     , hostname: 'intertubes'
     , servername: 'tube001'
-    , realname: 'Prototype Bot'
+    , realname: 'Alan Turing'
     }
   , logdir: 'logs'
+	, waitForPing: true
   }
 
 // Dynamic JSON reloads
@@ -445,6 +446,10 @@ bot = jerk( function( j ) {
       log.end()
     })
   })
+
+	j.watch_for( /^tu (.+)/, function( message ) {
+		message.say("http://compsci.ca/holtsoft/doc/" + message.match_data[1] + ".html")
+	})
 
   // CANIUSE?
   j.watch_for( /^([\/.,`?]?)caniuse ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function ( message ) {
