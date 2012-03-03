@@ -448,7 +448,20 @@ bot = jerk( function( j ) {
   })
 
 	j.watch_for( /^tu (.+)/, function( message ) {
-		message.say("http://compsci.ca/holtsoft/doc/" + message.match_data[1] + ".html")
+		var data = message.match_data[1]
+			, path = "/holtsoft/doc/" + data + ".html"
+
+		http.get({
+			host: "compsci.ca"
+			, port: 80
+			, path: path
+		}, function(res) {
+			if (res.statusCode == 200) {
+				message.say("http://compsci.ca" + path)
+			} else {
+				message.say("Can't find keyword \"" + data + "\"")
+			}
+		})
 	})
 
   // CANIUSE?
